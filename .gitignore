@@ -112,3 +112,5 @@ InitTestScene*.unity*
 
 # Auto-generated cache in Assets folder
 /[Aa]ssets/[Ss]ceneDependencyCache*
+Assets/Editor/Migration/AddVuforiaEnginePackage.cs
+Packages/com.ptc.vuforia.engine-10.17.4.tgz
