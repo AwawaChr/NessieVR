@@ -114,3 +114,11 @@ InitTestScene*.unity*
 /[Aa]ssets/[Ss]ceneDependencyCache*
 Assets/Editor/Migration/AddVuforiaEnginePackage.cs
 Packages/com.ptc.vuforia.engine-10.17.4.tgz
+# Vuforia package archive stored under Assets
+/Assets/Editor/Migration/com.ptc.vuforia.engine-10.17.4.tgz
+/Assets/Editor/Migration/com.ptc.vuforia.engine-10.17.4.tgz.meta
+
+# VS Code workspace files
+.vscode/
+
+/Assets/TextMesh Pro/Examples & Extras/
