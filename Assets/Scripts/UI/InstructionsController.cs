@@ -1,6 +1,10 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
+#if ENABLE_INPUT_SYSTEM
+using UnityEngine.InputSystem;
+#endif
 
 public class InstructionsController : MonoBehaviour
 {
@@ -13,30 +17,52 @@ public class InstructionsController : MonoBehaviour
     [SerializeField] private Button btnPrev;
     [SerializeField] private Button btnClose;
 
+    [Header("Navegación de Escenas")]
+    [Tooltip("Nombre exacto de la escena a cargar al salir (ej. MainMenu). Si se deja vacío, solo ocultará el panel.")]
+    [SerializeField] private string returnSceneName = "MainMenu";
+
     [Header("Eventos de Ciclo de Vida")]
-    [Tooltip("Se dispara cuando el usuario cierra las instrucciones")]
+    [Tooltip("Se dispara cuando el usuario cierra las instrucciones o cambia de escena")]
     public UnityEvent onClosed;
 
     private int currentPageIndex = 0;
 
     private void Awake()
     {
-        // Enlazar listeners de botones
-        if (btnClose != null) btnClose.onClick.AddListener(ClosePanel);
+        if (btnClose != null) btnClose.onClick.AddListener(CloseOrReturn);
         if (btnNext != null) btnNext.onClick.AddListener(NextPage);
         if (btnPrev != null) btnPrev.onClick.AddListener(PreviousPage);
     }
 
     private void OnEnable()
     {
-        // Al abrir el panel, siempre iniciar en la primera página
         ShowPage(0);
     }
 
     private void Update()
     {
-        // Soporte para botón "Atrás" nativo de Android (Escape)
+        CheckBackInput();
+    }
+
+    private void CheckBackInput()
+    {
+        bool backPressed = false;
+
+#if ENABLE_INPUT_SYSTEM
+        // Nuevo Input System: tecla Escape (PC) y botón Atrás en Android
+        if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
+        {
+            backPressed = true;
+        }
+#elif ENABLE_LEGACY_INPUT_MANAGER
+        // Input Manager antiguo
         if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            backPressed = true;
+        }
+#endif
+
+        if (backPressed)
         {
             HandleAndroidBack();
         }
@@ -77,7 +103,6 @@ public class InstructionsController : MonoBehaviour
 
     private void UpdateNavigationButtons()
     {
-        // Si hay una sola página o ninguna, ocultar botones de paginación
         if (pages == null || pages.Length <= 1)
         {
             if (btnPrev != null) btnPrev.gameObject.SetActive(false);
@@ -85,28 +110,33 @@ public class InstructionsController : MonoBehaviour
             return;
         }
 
-        // Mostrar u ocultar según extremos
         if (btnPrev != null) btnPrev.interactable = (currentPageIndex > 0);
         if (btnNext != null) btnNext.interactable = (currentPageIndex < pages.Length - 1);
     }
 
     private void HandleAndroidBack()
     {
-        // Si no está en la primera página, el botón "Atrás" de Android retrocede de página.
-        // Si ya está en la primera página, cierra el panel.
         if (currentPageIndex > 0)
         {
             PreviousPage();
         }
         else
         {
-            ClosePanel();
+            CloseOrReturn();
         }
     }
 
-    public void ClosePanel()
+    public void CloseOrReturn()
     {
-        gameObject.SetActive(false);
         onClosed?.Invoke();
+
+        if (!string.IsNullOrEmpty(returnSceneName))
+        {
+            SceneManager.LoadScene(returnSceneName);
+        }
+        else
+        {
+            gameObject.SetActive(false);
+        }
     }
 }

@@ -613,7 +613,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: Vuforia.Unity.Engine.dll::Vuforia.ImageTargetPreview
   mObserverBehaviour: {fileID: 785641596}
   mHiddenRoot: {fileID: 0}
-  mTargetName: marcanessie
+  mTargetName: marcaisla
+  mDatasetName: Vuforia/NessieVideo.xml
+  mCastedBehaviour: {fileID: 785641596}
+  mMeshFilter: {fileID: 0}
+  mMeshRenderer: {fileID: 0}
+--- !u!114 &785641603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 785641593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1778676317, guid: 8a9a760f95896c34689febc965510927, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Vuforia.Unity.Engine.dll::Vuforia.ImageTargetPreview
+  mObserverBehaviour: {fileID: 785641596}
+  mHiddenRoot: {fileID: 0}
+  mTargetName: marcaisla
   mDatasetName: Vuforia/NessieVideo.xml
   mCastedBehaviour: {fileID: 785641596}
   mMeshFilter: {fileID: 0}
@@ -1516,6 +1535,10 @@ PrefabInstance:
     - target: {fileID: 8514412057895354922, guid: 3202bd5614ea5524e8eb1d78ed81ba31, type: 3}
       propertyPath: mPreview
       value: 
+      objectReference: {fileID: 785641603}
+    - target: {fileID: 8514412057895354922, guid: 3202bd5614ea5524e8eb1d78ed81ba31, type: 3}
+      propertyPath: mTrackableName
+      value: marcaisla
       objectReference: {fileID: 0}
     - target: {fileID: 9141108861082837701, guid: 3202bd5614ea5524e8eb1d78ed81ba31, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1568,6 +1591,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1965655569696675566, guid: 3202bd5614ea5524e8eb1d78ed81ba31, type: 3}
       insertIndex: -1
       addedObject: {fileID: 785641602}
+    - targetCorrespondingSourceObject: {fileID: 1965655569696675566, guid: 3202bd5614ea5524e8eb1d78ed81ba31, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 785641603}
   m_SourcePrefab: {fileID: 100100000, guid: 3202bd5614ea5524e8eb1d78ed81ba31, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
