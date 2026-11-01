@@ -36,7 +36,7 @@ Material:
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
-  m_LockedProperties: 
+  m_LockedProperties: _DistanceMask_Start
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -419,8 +419,8 @@ Material:
     m_Colors:
     - _1st_Wave_Direction: {r: 1, g: 0, b: 0, a: 0}
     - _2nd_Wave_Direction: {r: -1, g: 0, b: 1, a: 0}
-    - _Color_Deep: {r: 0, g: 0.2541522, b: 0.4507858, a: 0.7019608}
-    - _Color_Shallow: {r: 0.2269659, g: 0.822786, b: 0.4507858, a: 0}
+    - _Color_Deep: {r: 0, g: 0.4052503, b: 0.7169812, a: 0.7019608}
+    - _Color_Shallow: {r: 0.17614006, g: 0.76729554, b: 0.39782336, a: 0}
     - _Deep_Color: {r: 0, g: 0.6745098, b: 0.47963083, a: 0.40392157}
     - _DistanceColor: {r: 1, g: 1, b: 1, a: 1}
     - _FarColor: {r: 0.15966535, g: 0.6787135, b: 0.8679245, a: 0}

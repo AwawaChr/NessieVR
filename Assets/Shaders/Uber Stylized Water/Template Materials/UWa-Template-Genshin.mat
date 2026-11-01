@@ -37,7 +37,7 @@ Material:
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
-  m_LockedProperties: 
+  m_LockedProperties: _Water_Depth
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -227,8 +227,8 @@ Material:
     - _Depth_Distance: 1.26
     - _DistanceMaskFade: 10
     - _DistanceMaskStart: 15
-    - _DistanceMask_Fade: 10
-    - _DistanceMask_Start: 5
+    - _DistanceMask_Fade: 5
+    - _DistanceMask_Start: 2
     - _DistanceNormalStrength: 0.01
     - _DistanceNormalTile: 5.54
     - _DistortionScale: 2
@@ -321,18 +321,18 @@ Material:
     - _SL_Dissolve: 1.17
     - _SL_EnableTrail: 0
     - _SL_ExplandNearShore: -0.635
-    - _SL_GradientDissolve: 0.44
+    - _SL_GradientDissolve: 0.4
     - _SL_MaskScale: 0.91
-    - _SL_Speed: -0.5
+    - _SL_Speed: -0.2
     - _SL_Thickness: 0.333
     - _SL_TrailFade: 0
     - _SL_Trail_Fade: 0
-    - _SL_WaterDepth: 0.5
+    - _SL_WaterDepth: 0.2
     - _ShoreFade: 1
     - _ShoreFadeHardness: 0.529
     - _ShoreFadeSmoothness: 0.2
     - _ShoreFade_1: 0
-    - _ShoreFade_Smoothness: 0.167
+    - _ShoreFade_Smoothness: 0.156
     - _ShoreLineAmmount: 3.47
     - _ShoreLineCenterMask: 2.01
     - _ShoreLineCutoff: 0.66
@@ -380,7 +380,7 @@ Material:
     - _Underwater_Fade: 15
     - _WORLDSPACEDEPTH: 1
     - _WaterDepth: 0.4
-    - _Water_Depth: 0.3
+    - _Water_Depth: 0.2
     - _WaveHeight: 0.01
     - _WaveHeight2nd: 0.01
     - _WaveLength: 10
@@ -419,7 +419,7 @@ Material:
     - _1st_Wave_Direction: {r: 1, g: 0, b: 0, a: 0}
     - _2nd_Wave_Direction: {r: -1, g: 0, b: 1, a: 0}
     - _Color_Deep: {r: 0, g: 0.52707064, b: 0.65199995, a: 0.78039217}
-    - _Color_Shallow: {r: 0, g: 0.695, b: 0.3670224, a: 0.09803922}
+    - _Color_Shallow: {r: 0, g: 0.55345905, b: 0.29392734, a: 0.09803922}
     - _Deep_Color: {r: 0.020447353, g: 0.2658158, b: 0.518, a: 1}
     - _DistanceColor: {r: 1, g: 1, b: 1, a: 1}
     - _FarColor: {r: 0.15966535, g: 0.6787135, b: 0.8679245, a: 0}
