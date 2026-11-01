@@ -19,6 +19,11 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene("NessieVR");
     }
 
+    public void IrAInstrucciones()
+    {
+        SceneManager.LoadScene("MenuEscena");
+    }
+
     public void IrAManipular()
     {
         SceneManager.LoadScene("PruebasManipular");
