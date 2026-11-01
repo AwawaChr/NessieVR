@@ -1466,6 +1466,10 @@ PrefabInstance:
       propertyPath: controlsContainer
       value: 
       objectReference: {fileID: 1332699320}
+    - target: {fileID: 8196850500801662978, guid: 3202bd5614ea5524e8eb1d78ed81ba31, type: 3}
+      propertyPath: mainMenuSceneName
+      value: MenuEscena
+      objectReference: {fileID: 0}
     - target: {fileID: 9141108861082837701, guid: 3202bd5614ea5524e8eb1d78ed81ba31, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
