@@ -4,78 +4,88 @@ using UnityEngine;
 public class NessieMovementController : MonoBehaviour
 {
     [Header("Movement")]
-    [SerializeField] private float moveSpeed = 0.5f;
-    [SerializeField] private float turnSpeed = 60f;
+    [SerializeField] private float moveSpeed = 0.08f;
+    [SerializeField] private float turnSpeed = 35f;
     [SerializeField] private TemporaryJoystick joystick;
 
-    [Header("Distance")]
-    [SerializeField] private float distanceStep = 0.5f;
-    [SerializeField] private float minDistance = -2f;
-    [SerializeField] private float maxDistance = 2f;
+    [Header("Swim Area")]
+    [SerializeField] private BoxCollider swimArea;
+    [SerializeField, Min(0f)] private float boundaryPadding = 0.1f;
 
     private Vector3 initialLocalPosition;
     private Quaternion initialLocalRotation;
-    private float distanceOffset;
 
     private void Start()
     {
         initialLocalPosition = transform.localPosition;
         initialLocalRotation = transform.localRotation;
-        distanceOffset = 0f;
     }
 
     private void Update()
     {
-        if (joystick == null)
+        if (joystick != null)
+        {
+            Vector2 input = joystick.Direction;
+
+            // Swim forward and backward.
+            transform.Translate(
+                Vector3.forward * input.y * moveSpeed * Time.deltaTime,
+                Space.Self
+            );
+
+            // Turn around the Image Target's up axis.
+            Vector3 upAxis = swimArea != null
+                ? swimArea.transform.up
+                : Vector3.up;
+
+            transform.Rotate(
+                upAxis,
+                input.x * turnSpeed * Time.deltaTime,
+                Space.World
+            );
+        }
+
+        KeepInsideSwimArea();
+    }
+
+    private void KeepInsideSwimArea()
+    {
+        if (swimArea == null)
             return;
 
-        Vector2 input = joystick.Direction;
+        Transform areaTransform = swimArea.transform;
 
-        // Forward and backward.
-        transform.Translate(
-            Vector3.forward * input.y * moveSpeed * Time.deltaTime,
-            Space.Self
+        // Convert Nessie's position into SwimArea local coordinates.
+        Vector3 localPosition =
+            areaTransform.InverseTransformPoint(transform.position);
+
+        Vector3 center = swimArea.center;
+        Vector3 halfSize = swimArea.size * 0.5f;
+
+        // Keep Nessie inside the X and Z boundaries.
+        localPosition.x = Mathf.Clamp(
+            localPosition.x,
+            center.x - halfSize.x + boundaryPadding,
+            center.x + halfSize.x - boundaryPadding
         );
 
-        // Turn left and right.
-        transform.Rotate(
-    Vector3.up * input.x * turnSpeed * Time.deltaTime,
-    Space.World
-);
-    }
-
-    public void SetSpeed(float speed)
-    {
-        moveSpeed = Mathf.Max(0f, speed);
-    }
-
-    public void MoveCloser()
-    {
-        distanceOffset = Mathf.Max(
-            minDistance, distanceOffset - distanceStep
+        localPosition.z = Mathf.Clamp(
+            localPosition.z,
+            center.z - halfSize.z + boundaryPadding,
+            center.z + halfSize.z - boundaryPadding
         );
-        ApplyDistance();
+
+        // Convert the corrected position back to world coordinates.
+        transform.position = areaTransform.TransformPoint(localPosition);
     }
 
-    public void MoveFarther()
-    {
-        distanceOffset = Mathf.Min(
-            maxDistance, distanceOffset + distanceStep
-        );
-        ApplyDistance();
-    }
-
-    private void ApplyDistance()
-    {
-        transform.localPosition =
-            initialLocalPosition +
-            initialLocalRotation * Vector3.forward * distanceOffset;
-    }
-
+    public void SetSpeed(float sliderValue)
+{
+    moveSpeed = Mathf.Lerp(0f, 0.16f, sliderValue);
+}
     public void ResetPosition()
     {
         transform.localPosition = initialLocalPosition;
         transform.localRotation = initialLocalRotation;
-        distanceOffset = 0f;
     }
 }
