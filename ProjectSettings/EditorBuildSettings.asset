@@ -8,9 +8,12 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
-  - enabled: 1
+  - enabled: 0
     path: Assets/NessieMovement/Scenes/NessieMovement_Test.unity
     guid: 921f909690db63e44b948987532deef4
+  - enabled: 1
+    path: Assets/Scenes/PruebasControles.unity
+    guid: a943d8b919be17b47a613a6f2fd795aa
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
