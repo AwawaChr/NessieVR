@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 366aaf8f4137f2642b46f6c0b08094ca
+guid: fbbbaba2253fbb7419e16574b66cec89
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1668550146547152304
-    second: joytick_0
+      213: -7354089826559554272
+    second: "Bot\xF3n circular turquesa brillante_0"
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: joytick_0
+      name: "Bot\xF3n circular turquesa brillante_0"
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 265
-        height: 250
+        width: 1292
+        height: 1217
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 0b57ed69481e72710800000000000000
-      internalID: 1668550146547152304
+      spriteID: 02d8a91344601f990800000000000000
+      internalID: -7354089826559554272
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      joytick_0: 1668550146547152304
+      "Bot\xF3n circular turquesa brillante_0": -7354089826559554272
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
