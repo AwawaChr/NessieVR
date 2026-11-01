@@ -1,68 +1,163 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class manipular : MonoBehaviour
 {
+    [Header("Rotation")]
     public float rotSpeed = 0.4f;
+
+    [Header("Pinch Zoom")]
+    public float minScale = 0.5f;
+    public float maxScale = 2.5f;
+
+    private Camera arCamera;
+    private Renderer[] objectRenderers;
+
+    private bool rotating = false;
+    private bool pinching = false;
+
     private float initialDistance;
     private Vector3 initialScale;
 
+    void Start()
+    {
+        // Find the Vuforia ARCamera directly
+        GameObject cameraObject = GameObject.Find("ARCamera");
+
+        if (cameraObject != null)
+            arCamera = cameraObject.GetComponent<Camera>();
+
+        // Fallback if ARCamera was not found
+        if (arCamera == null)
+            arCamera = Camera.main;
+
+        // Get renderers without requiring a Collider
+        objectRenderers = GetComponentsInChildren<Renderer>();
+
+        initialScale = transform.localScale;
+    }
 
     void Update()
     {
-        if (objIsTouched())
+        if (arCamera == null || Input.touchCount == 0)
+            return;
+
+        // ONE FINGER: ROTATE
+        if (Input.touchCount == 1)
         {
-            if (Input.touchCount == 1)
+            pinching = false;
+
+            Touch touch = Input.GetTouch(0);
+
+            if (touch.phase == TouchPhase.Began)
+                rotating = IsTouchingObject(touch.position);
+
+            if (touch.phase == TouchPhase.Moved && rotating)
             {
-                if (Input.GetTouch(0).phase == TouchPhase.Moved)
-                {
-                    Quaternion initRotation = this.transform.rotation;
-                    this.transform.Rotate(Input.GetTouch(0).deltaPosition.y * rotSpeed, -Input.GetTouch(0).deltaPosition.x * rotSpeed, 0, Space.World);
-                }
+                transform.Rotate(
+                    touch.deltaPosition.y * rotSpeed,
+                    -touch.deltaPosition.x * rotSpeed,
+                    0,
+                    Space.World
+                );
             }
 
-            if (Input.touchCount == 2)
+            if (touch.phase == TouchPhase.Ended ||
+                touch.phase == TouchPhase.Canceled)
             {
-                var touchZero = Input.GetTouch(0);
-                var touchOne = Input.GetTouch(1);
-
-                if (touchZero.phase == TouchPhase.Ended || touchZero.phase == TouchPhase.Canceled
-                   || touchOne.phase == TouchPhase.Ended || touchOne.phase == TouchPhase.Canceled)
-                {
-                    return;
-                }
-
-                if (touchZero.phase == TouchPhase.Began || touchOne.phase == TouchPhase.Began)
-                {
-                    initialDistance = Vector2.Distance(touchZero.position, touchOne.position);
-                    initialScale = this.transform.localScale;
-                }
-                else
-                {
-                    var currentDistance = Vector2.Distance(touchZero.position, touchOne.position);
-                    if (Mathf.Approximately(initialDistance, 0)) return;
-                    var factor = currentDistance / initialDistance;
-                    this.transform.localScale = initialScale * factor;
-                }
+                rotating = false;
             }
+        }
+
+        // TWO FINGERS: PINCH TO ZOOM
+        else if (Input.touchCount == 2)
+        {
+            rotating = false;
+
+            Touch touchZero = Input.GetTouch(0);
+            Touch touchOne = Input.GetTouch(1);
+
+            if (!pinching)
+            {
+                if (IsTouchingObject(touchZero.position) ||
+                    IsTouchingObject(touchOne.position))
+                {
+                    initialDistance = Vector2.Distance(
+                        touchZero.position,
+                        touchOne.position
+                    );
+
+                    initialScale = transform.localScale;
+                    pinching = true;
+                }
+
+                return;
+            }
+
+            float currentDistance = Vector2.Distance(
+                touchZero.position,
+                touchOne.position
+            );
+
+            if (initialDistance <= 0f)
+                return;
+
+            float factor = currentDistance / initialDistance;
+
+            float scaleFactor = Mathf.Clamp(
+                factor,
+                minScale,
+                maxScale
+            );
+
+            transform.localScale = initialScale * scaleFactor;
         }
     }
 
-    private bool objIsTouched()
+    private bool IsTouchingObject(Vector2 screenPosition)
     {
-        foreach (Touch t in Input.touches)
+        if (objectRenderers == null || objectRenderers.Length == 0)
+            return false;
+
+        foreach (Renderer rend in objectRenderers)
         {
-            Ray m_ray = Camera.main.ScreenPointToRay(t.position);
-            RaycastHit m_hit;
-            if (Physics.Raycast(m_ray, out m_hit, 100))
+            Bounds bounds = rend.bounds;
+
+            Vector3 min = bounds.min;
+            Vector3 max = bounds.max;
+
+            float minX = float.MaxValue;
+            float minY = float.MaxValue;
+            float maxX = float.MinValue;
+            float maxY = float.MinValue;
+
+            for (int i = 0; i < 8; i++)
             {
-                if (m_hit.transform.name == this.gameObject.name)
-                {
-                    return true;
-                }
+                Vector3 corner = new Vector3(
+                    (i & 1) == 0 ? min.x : max.x,
+                    (i & 2) == 0 ? min.y : max.y,
+                    (i & 4) == 0 ? min.z : max.z
+                );
+
+                Vector3 screenPoint = arCamera.WorldToScreenPoint(corner);
+
+                if (screenPoint.z <= 0)
+                    continue;
+
+                minX = Mathf.Min(minX, screenPoint.x);
+                minY = Mathf.Min(minY, screenPoint.y);
+                maxX = Mathf.Max(maxX, screenPoint.x);
+                maxY = Mathf.Max(maxY, screenPoint.y);
+            }
+
+            if (screenPosition.x >= minX &&
+                screenPosition.x <= maxX &&
+                screenPosition.y >= minY &&
+                screenPosition.y <= maxY)
+            {
+                return true;
             }
         }
+
         return false;
     }
 }

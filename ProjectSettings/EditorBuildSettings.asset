@@ -29,6 +29,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/NessieVR.unity
     guid: d050e6d2943ffa94a94f5bf56433581a
+  - enabled: 1
+    path: Assets/Scenes/ManipularPablo.unity
+    guid: 9be2c8bdc51dc9441ab47e8927c9867c
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
