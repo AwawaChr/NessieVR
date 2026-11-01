@@ -242,7 +242,7 @@ PrefabInstance:
     - target: {fileID: 114144114248384442, guid: f77f88b14a477764bb65a49d28c02d33, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 1668550146547152304, guid: 366aaf8f4137f2642b46f6c0b08094ca, type: 3}
+      objectReference: {fileID: -7354089826559554272, guid: fbbbaba2253fbb7419e16574b66cec89, type: 3}
     - target: {fileID: 224091927000801720, guid: f77f88b14a477764bb65a49d28c02d33, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -1157,7 +1157,7 @@ PrefabInstance:
     - target: {fileID: 114144114248384442, guid: f77f88b14a477764bb65a49d28c02d33, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 1668550146547152304, guid: 366aaf8f4137f2642b46f6c0b08094ca, type: 3}
+      objectReference: {fileID: -7354089826559554272, guid: fbbbaba2253fbb7419e16574b66cec89, type: 3}
     - target: {fileID: 114480945186419424, guid: f77f88b14a477764bb65a49d28c02d33, type: 3}
       propertyPath: m_ControlPath
       value: <Gamepad>/rightStick
