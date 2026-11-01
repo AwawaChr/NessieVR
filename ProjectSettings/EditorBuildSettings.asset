@@ -7,13 +7,28 @@ EditorBuildSettings:
   m_Scenes:
   - enabled: 0
     path: Assets/Scenes/SampleScene.unity
-    guid: 99c9720ab356a0642a771bea13969a05
+    guid: 8c9cfa26abfee488c85f1582747f6a02
   - enabled: 0
     path: Assets/NessieMovement/Scenes/NessieMovement_Test.unity
     guid: 921f909690db63e44b948987532deef4
   - enabled: 1
     path: Assets/Scenes/PruebasControles.unity
     guid: a943d8b919be17b47a613a6f2fd795aa
+  - enabled: 1
+    path: Assets/Scenes/MenuEscena.unity
+    guid: 176b11c23213187479cc7d3f3e3df60b
+  - enabled: 1
+    path: Assets/Scenes/PruebasManipular.unity
+    guid: 36a4877401d05a34e868aa924bcfccc2
+  - enabled: 1
+    path: Assets/Scenes/Sandbox_Instrucciones.unity
+    guid: 99eabf36d2f8c34448b1cc90df8a7221
+  - enabled: 1
+    path: Assets/Scenes/Sandbox_Video.unity
+    guid: 9895cde73038cb043b70d2c0aea16f46
+  - enabled: 1
+    path: Assets/Scenes/NessieVR.unity
+    guid: d050e6d2943ffa94a94f5bf56433581a
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

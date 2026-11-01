@@ -14,6 +14,16 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene("Sandbox_Instrucciones");
     }
 
+    public void IrAR()
+    {
+        SceneManager.LoadScene("NessieVR");
+    }
+
+    public void IrAManipular()
+    {
+        SceneManager.LoadScene("PruebasManipular");
+    }
+
     public void IrAVideoTrailer()
     {
         SceneManager.LoadScene("Sandbox_Video");
