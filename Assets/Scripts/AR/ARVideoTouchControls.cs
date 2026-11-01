@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class ARVideoTouchControls : MonoBehaviour
@@ -9,13 +10,17 @@ public class ARVideoTouchControls : MonoBehaviour
     [SerializeField] private VideoPlayer videoPlayer;
 
     [Header("Contenedor de Controles UI")]
-    [Tooltip("El GameObject padre en el Canvas que contiene los botones")]
     [SerializeField] private GameObject controlsContainer;
 
     [Header("Botones y Textos UI")]
     [SerializeField] private Button btnPlayPause;
     [SerializeField] private Button btnRestart;
+    [SerializeField] private Button btnBackToMenu;
     [SerializeField] private TextMeshProUGUI txtPlayPause;
+
+    [Header("Navegación")]
+    [Tooltip("Nombre exacto de la escena del menú principal en Build Settings")]
+    [SerializeField] private string mainMenuSceneName = "MainMenu";
 
     private void Awake()
     {
@@ -25,10 +30,21 @@ public class ARVideoTouchControls : MonoBehaviour
         if (btnRestart != null)
             btnRestart.onClick.AddListener(RestartVideo);
 
+        if (btnBackToMenu != null)
+            btnBackToMenu.onClick.AddListener(ReturnToMainMenu);
+
         UpdatePlayPauseLabel();
     }
 
-    // Callback para Vuforia: On Target Found
+    private void Update()
+    {
+        // Soporte para botón 'Atrás' nativo de Android
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            ReturnToMainMenu();
+        }
+    }
+
     public void OnTargetFound()
     {
         if (controlsContainer != null)
@@ -40,7 +56,6 @@ public class ARVideoTouchControls : MonoBehaviour
         UpdatePlayPauseLabel();
     }
 
-    // Callback para Vuforia: On Target Lost
     public void OnTargetLost()
     {
         if (controlsContainer != null)
@@ -55,13 +70,9 @@ public class ARVideoTouchControls : MonoBehaviour
         if (videoPlayer == null) return;
 
         if (videoPlayer.isPlaying)
-        {
             videoPlayer.Pause();
-        }
         else
-        {
             videoPlayer.Play();
-        }
 
         UpdatePlayPauseLabel();
     }
@@ -80,6 +91,19 @@ public class ARVideoTouchControls : MonoBehaviour
         if (txtPlayPause != null && videoPlayer != null)
         {
             txtPlayPause.text = videoPlayer.isPlaying ? "PAUSA" : "PLAY";
+        }
+    }
+
+    public void ReturnToMainMenu()
+    {
+        if (videoPlayer != null && videoPlayer.isPlaying)
+        {
+            videoPlayer.Stop();
+        }
+
+        if (!string.IsNullOrEmpty(mainMenuSceneName))
+        {
+            SceneManager.LoadScene(mainMenuSceneName);
         }
     }
 }
