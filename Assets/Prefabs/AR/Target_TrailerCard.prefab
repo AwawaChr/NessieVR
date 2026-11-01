@@ -11,8 +11,10 @@ GameObject:
   - component: {fileID: 9141108861082837701}
   - component: {fileID: 8514412057895354922}
   - component: {fileID: 7291283657716552497}
-  - component: {fileID: 3061921300972867780}
   - component: {fileID: 5312563412042617243}
+  - component: {fileID: 8196850500801662978}
+  - component: {fileID: 502100396427105481}
+  - component: {fileID: 226968065018662438}
   m_Layer: 0
   m_Name: Target_TrailerCard
   m_TagString: Untagged
@@ -51,7 +53,7 @@ MonoBehaviour:
   PreviewVisible: 1
   RuntimeOcclusion: 0
   RuntimeCollider: 0
-  mTrackableName: marcanessie
+  mTrackableName: marcaisla
   mInitializedInEditor: 1
   mDataSetPath: Vuforia/NessieVideo.xml
   mAspectRatio: 1.5
@@ -62,7 +64,7 @@ MonoBehaviour:
   mMotionHint: 1
   mTrackingOptimization: 0
   mTrackingOptimizationNeedsUpgrade: 0
-  mPreview: {fileID: 3061921300972867780}
+  mPreview: {fileID: 226968065018662438}
 --- !u!114 &7291283657716552497
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -104,8 +106,8 @@ MonoBehaviour:
   OnTargetFound:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5312563412042617243}
-        m_TargetAssemblyTypeName: ARVideoTargetController, Assembly-CSharp
+      - m_Target: {fileID: 8196850500801662978}
+        m_TargetAssemblyTypeName: ARVideoTouchControls, Assembly-CSharp
         m_MethodName: OnTargetFound
         m_Mode: 1
         m_Arguments:
@@ -119,9 +121,9 @@ MonoBehaviour:
   OnTargetLost:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5312563412042617243}
-        m_TargetAssemblyTypeName: ARVideoTargetController, Assembly-CSharp
-        m_MethodName: OnTargetLost
+      - m_Target: {fileID: 8196850500801662978}
+        m_TargetAssemblyTypeName: ARVideoTouchControls, Assembly-CSharp
+        m_MethodName: OnTargetFound
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -131,25 +133,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &3061921300972867780
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1965655569696675566}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1778676317, guid: 8a9a760f95896c34689febc965510927, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Vuforia.Unity.Engine.dll::Vuforia.ImageTargetPreview
-  mObserverBehaviour: {fileID: 8514412057895354922}
-  mHiddenRoot: {fileID: 0}
-  mTargetName: marcanessie
-  mDatasetName: Vuforia/NessieVideo.xml
-  mCastedBehaviour: {fileID: 8514412057895354922}
-  mMeshFilter: {fileID: 0}
-  mMeshRenderer: {fileID: 0}
 --- !u!114 &5312563412042617243
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,6 +147,63 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ARVideoTargetController
   videoPlayer: {fileID: 6836131131421957521}
   targetRenderTexture: {fileID: 8400000, guid: 59174741832337941a54a744aff52937, type: 2}
+--- !u!114 &8196850500801662978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1965655569696675566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98f7da406583e2e41b95186d5c96e38a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ARVideoTouchControls
+  videoPlayer: {fileID: 6836131131421957521}
+  controlsContainer: {fileID: 0}
+  btnPlayPause: {fileID: 0}
+  btnRestart: {fileID: 0}
+  btnBackToMenu: {fileID: 0}
+  txtPlayPause: {fileID: 0}
+  mainMenuSceneName: SampleScene
+--- !u!114 &502100396427105481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1965655569696675566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1778676317, guid: 8a9a760f95896c34689febc965510927, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Vuforia.Unity.Engine.dll::Vuforia.ImageTargetPreview
+  mObserverBehaviour: {fileID: 8514412057895354922}
+  mHiddenRoot: {fileID: 0}
+  mTargetName: marcaisla
+  mDatasetName: Vuforia/NessieVideo.xml
+  mCastedBehaviour: {fileID: 8514412057895354922}
+  mMeshFilter: {fileID: 0}
+  mMeshRenderer: {fileID: 0}
+--- !u!114 &226968065018662438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1965655569696675566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1778676317, guid: 8a9a760f95896c34689febc965510927, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Vuforia.Unity.Engine.dll::Vuforia.ImageTargetPreview
+  mObserverBehaviour: {fileID: 8514412057895354922}
+  mHiddenRoot: {fileID: 0}
+  mTargetName: marcaisla
+  mDatasetName: Vuforia/NessieVideo.xml
+  mCastedBehaviour: {fileID: 8514412057895354922}
+  mMeshFilter: {fileID: 0}
+  mMeshRenderer: {fileID: 0}
 --- !u!1 &8549321519229424128
 GameObject:
   m_ObjectHideFlags: 0

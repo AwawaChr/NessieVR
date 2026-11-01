@@ -616,6 +616,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: InstructionsPanel
       objectReference: {fileID: 0}
+    - target: {fileID: 8311874282962568008, guid: 184c883f9100e2e42bb6108a1a5ca2d8, type: 3}
+      propertyPath: returnSceneName
+      value: SampleScene
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
