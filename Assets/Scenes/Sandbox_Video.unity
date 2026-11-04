@@ -738,6 +738,63 @@ MonoBehaviour:
   mCastedBehaviour: {fileID: 1394623616}
   mMeshFilter: {fileID: 0}
   mMeshRenderer: {fileID: 0}
+--- !u!114 &1394623618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1394623612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1778676317, guid: 8a9a760f95896c34689febc965510927, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Vuforia.Unity.Engine.dll::Vuforia.ImageTargetPreview
+  mObserverBehaviour: {fileID: 1394623616}
+  mHiddenRoot: {fileID: 0}
+  mTargetName: marcaisla
+  mDatasetName: Vuforia/NessieVideo.xml
+  mCastedBehaviour: {fileID: 1394623616}
+  mMeshFilter: {fileID: 0}
+  mMeshRenderer: {fileID: 0}
+--- !u!114 &1394623619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1394623612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1778676317, guid: 8a9a760f95896c34689febc965510927, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Vuforia.Unity.Engine.dll::Vuforia.ImageTargetPreview
+  mObserverBehaviour: {fileID: 1394623616}
+  mHiddenRoot: {fileID: 0}
+  mTargetName: marcaisla
+  mDatasetName: Vuforia/NessieVideo.xml
+  mCastedBehaviour: {fileID: 1394623616}
+  mMeshFilter: {fileID: 0}
+  mMeshRenderer: {fileID: 0}
+--- !u!114 &1394623620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1394623612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1778676317, guid: 8a9a760f95896c34689febc965510927, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Vuforia.Unity.Engine.dll::Vuforia.ImageTargetPreview
+  mObserverBehaviour: {fileID: 1394623616}
+  mHiddenRoot: {fileID: 0}
+  mTargetName: marcaisla
+  mDatasetName: Vuforia/NessieVideo.xml
+  mCastedBehaviour: {fileID: 1394623616}
+  mMeshFilter: {fileID: 0}
+  mMeshRenderer: {fileID: 0}
 --- !u!1 &1402245673
 GameObject:
   m_ObjectHideFlags: 0
@@ -1091,6 +1148,10 @@ PrefabInstance:
       propertyPath: mainMenuSceneName
       value: MenuEscena
       objectReference: {fileID: 0}
+    - target: {fileID: 8514412057895354922, guid: 3202bd5614ea5524e8eb1d78ed81ba31, type: 3}
+      propertyPath: mPreview
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 9141108861082837701, guid: 3202bd5614ea5524e8eb1d78ed81ba31, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1131,15 +1192,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 226968065018662438, guid: 3202bd5614ea5524e8eb1d78ed81ba31, type: 3}
-    - {fileID: 502100396427105481, guid: 3202bd5614ea5524e8eb1d78ed81ba31, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1965655569696675566, guid: 3202bd5614ea5524e8eb1d78ed81ba31, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1394623617}
+    - targetCorrespondingSourceObject: {fileID: 1965655569696675566, guid: 3202bd5614ea5524e8eb1d78ed81ba31, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1394623620}
+    - targetCorrespondingSourceObject: {fileID: 1965655569696675566, guid: 3202bd5614ea5524e8eb1d78ed81ba31, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1394623619}
+    - targetCorrespondingSourceObject: {fileID: 1965655569696675566, guid: 3202bd5614ea5524e8eb1d78ed81ba31, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1394623618}
   m_SourcePrefab: {fileID: 100100000, guid: 3202bd5614ea5524e8eb1d78ed81ba31, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
