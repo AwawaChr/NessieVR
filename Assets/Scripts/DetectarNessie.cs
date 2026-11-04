@@ -9,7 +9,7 @@ public class DetectarNessie : MonoBehaviour
 
     [Header("Configuracion")]
     [Tooltip("Radio de la esfera utilizada para ampliar la deteccion.")]
-    public float radioDeteccion = 0.3f;
+    public float radioDeteccion = 0.1f;
 
     [Tooltip("Intervalo entre mensajes de depuracion.")]
     public float intervaloDebug = 1f;
@@ -48,107 +48,67 @@ public class DetectarNessie : MonoBehaviour
     /// true si el objeto esta dentro del haz;
     /// false si esta fuera o no puede detectarse.
     /// </summary>
-    private bool ComprobarIluminacion(GameObject objetivo)
+    
+private bool ComprobarIluminacion(GameObject objetivo)
+{
+    if (linterna == null || objetivo == null)
+        return false;
+
+    // Obtiene el Collider de Nessie, incluso si está en un hijo.
+    Collider colisionador = objetivo.GetComponentInChildren<Collider>();
+
+    if (colisionador == null)
+        return false;
+
+    Vector3 origen = linterna.transform.position;
+
+    // Utiliza el centro del Collider de Nessie.
+    Vector3 destino = colisionador.bounds.center;
+
+    Vector3 direccion = destino - origen;
+
+    float distancia = direccion.magnitude;
+
+    // Comprueba que Nessie esté dentro del alcance.
+    if (distancia > linterna.range)
+        return false;
+
+    // Comprueba que Nessie esté dentro del ángulo de la linterna.
+    float angulo = Vector3.Angle(
+        linterna.transform.forward,
+        direccion
+    );
+
+    if (angulo > linterna.spotAngle / 2f)
+        return false;
+
+    // Comprueba qué objeto recibe primero el rayo.
+    if (Physics.Raycast(
+        origen,
+        direccion.normalized,
+        out RaycastHit impacto,
+        distancia
+    ))
     {
-        // Comprueba que las referencias esten asignadas.
-        if (linterna == null)
+        // Comprueba si el impacto pertenece a Nessie.
+        bool esNessie =
+            impacto.collider.transform == objetivo.transform ||
+            impacto.collider.transform.IsChildOf(objetivo.transform);
+
+        if (esNessie)
         {
-            MostrarDepuracion("ERROR: No se ha asignado la linterna.");
-            return false;
-        }
-
-        if (objetivo == null)
-        {
-            MostrarDepuracion("ERROR: No se ha asignado Nessie.");
-            return false;
-        }
-
-        // Comprueba que el foco sea de tipo Spot.
-        if (linterna.type != LightType.Spot)
-        {
-            MostrarDepuracion("ERROR: La linterna no es de tipo Spot.");
-            return false;
-        }
-
-        // Obtiene los colliders del objeto y de sus hijos.
-        Collider[] colliders = objetivo.GetComponentsInChildren<Collider>();
-
-        if (colliders.Length == 0)
-        {
-            MostrarDepuracion("ERROR: Nessie no tiene ningun Collider.");
-            return false;
-        }
-
-        // Obtiene la posicion y direccion de la linterna.
-        Vector3 origen = linterna.transform.position;
-        Vector3 direccion = linterna.transform.forward;
-
-        // Calcula el angulo maximo permitido.
-        float anguloMaximo = linterna.spotAngle / 2f;
-
-        // Lanza una esfera invisible hacia delante.
-        RaycastHit[] impactos = Physics.SphereCastAll(
-            origen,
-            radioDeteccion,
-            direccion,
-            linterna.range
-        );
-
-        // Comprueba cada objeto alcanzado por el SphereCast.
-        foreach (RaycastHit impacto in impactos)
-        {
-            // Comprueba si el impacto pertenece a Nessie.
-            bool perteneceANessie =
-                impacto.collider.transform == objetivo.transform ||
-                impacto.collider.transform.IsChildOf(objetivo.transform);
-
-            if (!perteneceANessie)
-                continue;
-
-            // Calcula la direccion desde la linterna hasta Nessie.
-            Vector3 direccionNessie = impacto.point - origen;
-
-            // Calcula la distancia hasta el punto de impacto.
-            float distancia = direccionNessie.magnitude;
-
-            // Calcula el angulo entre el foco y Nessie.
-            float angulo = Vector3.Angle(
-                direccion,
-                direccionNessie
-            );
-
-            // Comprueba si Nessie esta dentro del alcance.
-            bool dentroAlcance = distancia <= linterna.range;
-
-            // Comprueba si Nessie esta dentro del cono de luz.
-            bool dentroAngulo = angulo <= anguloMaximo;
-
-            // Informa de los resultados de la comprobacion.
-            if (dentroAlcance && dentroAngulo)
-            {
-                MostrarDepuracion(
-                    "DETECTADO: Nessie esta dentro del haz. " +
-                    "Distancia: " + distancia.ToString("F2") +
-                    " | Angulo: " + angulo.ToString("F2")
-                );
-
-                return true;
-            }
-
-            MostrarDepuracion(
-                "IMPACTO EN NESSIE, PERO FUERA DEL CONO. " +
-                "Distancia: " + distancia.ToString("F2") +
-                " | Angulo: " + angulo.ToString("F2") +
-                " | Angulo maximo: " + anguloMaximo.ToString("F2")
-            );
+            MostrarDepuracion("DETECTADO: Nessie está iluminado.");
+            return true;
         }
 
         MostrarDepuracion(
-            "SIN DETECCION: SphereCast no ha encontrado Nessie."
+            "BLOQUEADO: " + impacto.collider.name
         );
-
-        return false;
     }
+
+    return false;
+}
+
 
     /// <summary>
     /// Muestra mensajes de depuracion en la consola respetando el intervalo configurado.
