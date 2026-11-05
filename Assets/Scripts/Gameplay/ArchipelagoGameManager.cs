@@ -2,12 +2,17 @@ using UnityEngine;
 
 /// <summary>
 /// Controlador principal del minijuego en el archipiélago.
-/// Permanece bloqueado hasta que el sistema de Ground Plane confirma el anclaje del escenario.
+/// Permanece bloqueado hasta que el sistema de Ground Plane confirma el anclaje del escenario
+/// y gestiona el inicio de la sesión y la primera aparición de Nessie.
 /// </summary>
 public class ArchipelagoGameManager : MonoBehaviour
 {
     [Header("Estado del Juego")]
     [SerializeField] private bool isGameActive = false;
+
+    [Header("Personaje Principal")]
+    [Tooltip("Referencia al controlador de Nessie")]
+    [SerializeField] private NessieController nessie;
 
     [Header("Elementos del Minijuego a Activar")]
     [Tooltip("Objetos, agentes o sistemas de partículas que deben activarse al arrancar")]
@@ -26,7 +31,7 @@ public class ArchipelagoGameManager : MonoBehaviour
 
     private void OnEnable()
     {
-        // Suscripción al evento de anclaje confirmado
+        // Suscripción al evento de anclaje confirmado de Ground Plane
         GroundPlanePlacementController.OnScenarioAnchoredAndReady += HandleScenarioPlaced;
     }
 
@@ -49,18 +54,25 @@ public class ArchipelagoGameManager : MonoBehaviour
     {
         isGameActive = true;
 
-        // Activar entidades y comportamientos
+        // Activar entidades secundarias y comportamientos
         SetGameplaySystemsActive(true);
 
-        // Aquí puedes disparar timers, spawns de personajes o audio ambiental
+        // Hace aparecer a Nessie en su primer Spawn Point tras colocar la isla
+        if (nessie != null)
+        {
+            nessie.RelocateToRandomSpawn();
+        }
+        else
+        {
+            Debug.LogWarning("[ArchipelagoGameManager] NessieController no está asignado en el Inspector.");
+        }
     }
 
     private void Update()
     {
-        // Si el juego aún no ha empezado, no procesar nada
         if (!isGameActive) return;
 
-        // --- LÓGICA DE ACTUALIZACIÓN DEL MINIJUEGO AQUÍ ---
+        // Lógica de bucle de juego si se requiere más adelante
     }
 
     private void SetGameplaySystemsActive(bool state)
