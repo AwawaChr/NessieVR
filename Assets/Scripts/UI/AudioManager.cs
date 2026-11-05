@@ -18,12 +18,10 @@ public class AudioManager : MonoBehaviour
     private AudioSource musica;
     
     [Header("Volumen efectos")]
-    [Range(0f, 1f)]
     public float volumenEfectos = 1f;
     public Slider sliderEfectos;
     
     [Header("Volumen Musica")]
-    [Range(0f, 1f)]
     public float volumenMusica = 1f;
     public Slider sliderMusica;
     
