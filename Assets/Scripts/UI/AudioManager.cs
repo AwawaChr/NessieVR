@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.Audio;
+using UnityEngine.UI;
 
 public class AudioManager : MonoBehaviour
 {
@@ -18,6 +20,13 @@ public class AudioManager : MonoBehaviour
     [Header("Volumen efectos")]
     [Range(0f, 1f)]
     public float volumenEfectos = 1f;
+    public Slider sliderEfectos;
+    
+    [Header("Volumen Musica")]
+    [Range(0f, 1f)]
+    public float volumenMusica = 1f;
+    public Slider sliderMusica;
+    
     void Awake()
     {
         if (Instance != null && Instance != this)
@@ -36,27 +45,41 @@ public class AudioManager : MonoBehaviour
 
         musica.playOnAwake = false;
         musica.loop = true;
+        musica.volume = volumenMusica;
+        
+        if (sliderMusica != null)
+        {
+            sliderMusica.value = volumenMusica;
 
-        if (musicaFondo != null)
+            sliderMusica.onValueChanged.AddListener(CambiarVolumenMusica);
+        }
+
+        if (musicaFondo != null)    
         {
             musica.clip = musicaFondo;
             musica.Play();
         }
     }
+    
+    public void CambiarVolumenMusica(float volumen)
+    {
+        volumenMusica = volumen;
+        musica.volume = volumenMusica;
+    }
 
     public void SonidoBoton()
     {
-        efectos.PlayOneShot(sonidoBoton,volumenEfectos);
+        efectos.PlayOneShot(sonidoBoton,sliderEfectos.value);
     }
 
     public void SonidoCambioPantalla()
     {
-        efectos.PlayOneShot(sonidoCambioPantalla,volumenEfectos);
+        efectos.PlayOneShot(sonidoCambioPantalla,sliderEfectos.value);
     }
 
     public void SonidoInicioPartida()
     {
-        efectos.PlayOneShot(sonidoInicioPartida,volumenEfectos);
+        efectos.PlayOneShot(sonidoInicioPartida,sliderEfectos.value);
     }
 
     public void ReproducirMusica()

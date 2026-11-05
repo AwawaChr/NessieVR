@@ -6,7 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="b96ccc77-69c5-4e64-a5c1-e6e3acbcfa8e" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.NessieVR/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.NessieVR/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/QCAR/somedata16" beforeDir="false" afterPath="$PROJECT_DIR$/QCAR/somedata16" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/AudioManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/AudioManager.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,6 +96,8 @@
       <workItem from="1793745809249" duration="181000" />
       <workItem from="1793835238065" duration="1295000" />
       <workItem from="1793908074466" duration="3000" />
+      <workItem from="1793912794135" duration="218000" />
+      <workItem from="1793913027861" duration="1565000" />
     </task>
     <servers />
   </component>
