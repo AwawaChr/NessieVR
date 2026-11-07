@@ -1,6 +1,6 @@
 
 using UnityEngine;
-
+using UnityEngine.UI;
 public class DetectarNessie : MonoBehaviour
 {
     [Header("Referencias")]
@@ -21,10 +21,43 @@ public class DetectarNessie : MonoBehaviour
     private bool estadoAnterior;
     private bool primerEstado = true;
 
+    [Header("Exposición")]
+    public Slider barraExposicion;
+    public float tiempoExposicionNecesario = 10f;
+
+    [Header("Control del juego")]
+    public ControlDelJuego controlJuego;
+
+    private float exposicionActual = 0f;
+    private bool nessieEliminado = false;
+
+
     private void Update()
     {
         // Comprueba si Nessie se encuentra dentro del haz.
         nessieIluminado = ComprobarIluminacion(nessie);
+
+        if (nessieIluminado && !nessieEliminado)
+        {
+            exposicionActual += Time.deltaTime;
+
+            if (exposicionActual >= tiempoExposicionNecesario)
+            {
+                exposicionActual = tiempoExposicionNecesario;
+                nessieEliminado = true;
+
+                if (controlJuego != null)
+                {
+                    controlJuego.MonstruoMuerto();
+                }
+            }
+        }
+
+        if (barraExposicion != null)
+        {
+            barraExposicion.value =
+                exposicionActual / tiempoExposicionNecesario;
+        }
 
         // Informa cuando cambia el estado de deteccion.
         if (primerEstado || nessieIluminado != estadoAnterior)
@@ -164,7 +197,7 @@ private bool ComprobarIluminacion(GameObject objetivo)
         ) * direccion;
 
         // Dibuja los cuatro limites aproximados del cono.
-        Gizmos.DrawRay(origen, derecha * linterna.range);
+        Gizmos.DrawRay(origen, derecha * linterna.range);x
         Gizmos.DrawRay(origen, izquierda * linterna.range);
         Gizmos.DrawRay(origen, arriba * linterna.range);
         Gizmos.DrawRay(origen, abajo * linterna.range);

@@ -1,6 +1,5 @@
 
 using TMPro;
-using UnityEditor.Build.Content;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -17,10 +16,6 @@ public class ControlDelJuego : MonoBehaviour
     private int minutos, segundos;
     private bool juegoTerminado = false;
 
-    private void Start()
-    {
-        
-    }
     void Update()
     {
         if (juegoTerminado) return;

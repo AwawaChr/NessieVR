@@ -1,3 +1,4 @@
+
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
@@ -16,15 +17,15 @@ public class AudioManager : MonoBehaviour
 
     private AudioSource efectos;
     private AudioSource musica;
-    
+
     [Header("Volumen efectos")]
     public float volumenEfectos = 1f;
-    public Slider sliderEfectos;
-    
+    private Slider sliderEfectos;
+
     [Header("Volumen Musica")]
     public float volumenMusica = 1f;
-    public Slider sliderMusica;
-    
+    private Slider sliderMusica;
+
     void Awake()
     {
         if (Instance != null && Instance != this)
@@ -44,21 +45,38 @@ public class AudioManager : MonoBehaviour
         musica.playOnAwake = false;
         musica.loop = true;
         musica.volume = volumenMusica;
-        
-        if (sliderMusica != null)
-        {
-            sliderMusica.value = volumenMusica;
 
-            sliderMusica.onValueChanged.AddListener(CambiarVolumenMusica);
-        }
-
-        if (musicaFondo != null)    
+        if (musicaFondo != null)
         {
             musica.clip = musicaFondo;
             musica.Play();
         }
     }
-    
+
+    // Conectar los Sliders de la escena actual
+    public void ConfigurarSliders(Slider sliderEfectosUI, Slider sliderMusicaUI)
+    {
+        sliderEfectos = sliderEfectosUI;
+        sliderMusica = sliderMusicaUI;
+
+        if (sliderEfectos != null)
+        {
+            sliderEfectos.SetValueWithoutNotify(volumenEfectos);
+            sliderEfectos.onValueChanged.AddListener(CambiarVolumenEfectos);
+        }
+
+        if (sliderMusica != null)
+        {
+            sliderMusica.SetValueWithoutNotify(volumenMusica);
+            sliderMusica.onValueChanged.AddListener(CambiarVolumenMusica);
+        }
+    }
+
+    public void CambiarVolumenEfectos(float volumen)
+    {
+        volumenEfectos = volumen;
+    }
+
     public void CambiarVolumenMusica(float volumen)
     {
         volumenMusica = volumen;
@@ -67,17 +85,20 @@ public class AudioManager : MonoBehaviour
 
     public void SonidoBoton()
     {
-        efectos.PlayOneShot(sonidoBoton,sliderEfectos.value);
+        if (sonidoBoton != null)
+            efectos.PlayOneShot(sonidoBoton, volumenEfectos);
     }
 
     public void SonidoCambioPantalla()
     {
-        efectos.PlayOneShot(sonidoCambioPantalla,sliderEfectos.value);
+        if (sonidoCambioPantalla != null)
+            efectos.PlayOneShot(sonidoCambioPantalla, volumenEfectos);
     }
 
     public void SonidoInicioPartida()
     {
-        efectos.PlayOneShot(sonidoInicioPartida,sliderEfectos.value);
+        if (sonidoInicioPartida != null)
+            efectos.PlayOneShot(sonidoInicioPartida, volumenEfectos);
     }
 
     public void ReproducirMusica()
