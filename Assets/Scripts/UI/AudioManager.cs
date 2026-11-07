@@ -11,6 +11,8 @@ public class AudioManager : MonoBehaviour
     public AudioClip sonidoBoton;
     public AudioClip sonidoCambioPantalla;
     public AudioClip sonidoInicioPartida;
+    public AudioClip sonidoPerder;
+    public AudioClip sonidoGanar;
 
     [Header("Música de fondo (opcional)")]
     public AudioClip musicaFondo;
@@ -101,6 +103,17 @@ public class AudioManager : MonoBehaviour
             efectos.PlayOneShot(sonidoInicioPartida, volumenEfectos);
     }
 
+    public void SonidoPerdiste()
+    {
+        if (sonidoPerder != null)
+            efectos.PlayOneShot(sonidoPerder, volumenEfectos);
+    }
+
+    public void SonidoGanaste()
+    {
+        if (sonidoGanar != null)
+            efectos.PlayOneShot(sonidoGanar, volumenEfectos);
+    }
     public void ReproducirMusica()
     {
         if (musicaFondo != null && !musica.isPlaying)

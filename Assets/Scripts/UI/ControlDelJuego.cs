@@ -44,14 +44,30 @@ public class ControlDelJuego : MonoBehaviour
     private void Victoria()
     {
         juegoTerminado = true;
+
         imagenVictoria.SetActive(true);
+
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.DetenerMusica();
+            AudioManager.Instance.SonidoGanaste();
+        }
+
         Debug.Log("¡Has ganado!");
     }
 
     private void Derrota()
     {
         juegoTerminado = true;
+
         imagenDerrota.SetActive(true);
+
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.DetenerMusica();
+            AudioManager.Instance.SonidoPerdiste();
+        }
+
         Debug.Log("¡Has perdido!");
     }
 
