@@ -1,6 +1,8 @@
 
 using TMPro;
+using UnityEditor.Build.Content;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ControlDelJuego : MonoBehaviour
 {
@@ -9,11 +11,16 @@ public class ControlDelJuego : MonoBehaviour
     [SerializeField, Tooltip("Tiempo en segundos")] private float time = 300f;
 
     [Header("Resultado")]
-    [SerializeField] private TMP_Text resultadoTexto;
+    [SerializeField] private GameObject imagenVictoria;
+    [SerializeField] private GameObject imagenDerrota;
 
     private int minutos, segundos;
     private bool juegoTerminado = false;
 
+    private void Start()
+    {
+        
+    }
     void Update()
     {
         if (juegoTerminado) return;
@@ -42,14 +49,21 @@ public class ControlDelJuego : MonoBehaviour
     private void Victoria()
     {
         juegoTerminado = true;
-        resultadoTexto.text = "¡VICTORIA!";
+        imagenVictoria.SetActive(true);
         Debug.Log("¡Has ganado!");
     }
 
     private void Derrota()
     {
         juegoTerminado = true;
-        resultadoTexto.text = "¡DERROTA!";
+        imagenDerrota.SetActive(true);
         Debug.Log("¡Has perdido!");
+    }
+
+    public void reinicioPartida()
+    {
+        Time.timeScale = 1f;
+        Scene escenaActual = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(escenaActual.name, LoadSceneMode.Single);
     }
 }
