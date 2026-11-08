@@ -7,8 +7,8 @@ public class MenuManager : MonoBehaviour
         SceneManager.LoadScene("CondicionesGanarPerder");
     }
 
-    public void SalirDelJuego()
+    public void VolverMenu()
     {
-        Application.Quit();
+        SceneManager.LoadScene("MenuEscena");
     }
 }
