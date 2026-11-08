@@ -4,7 +4,7 @@ public class MenuManager : MonoBehaviour
 {
     public void IniciarPartida()
     {
-        SceneManager.LoadScene("Sandbox_GroundPlane");
+        SceneManager.LoadScene("CondicionesGanarPerder");
     }
 
     public void SalirDelJuego()

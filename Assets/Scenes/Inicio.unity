@@ -131,6 +131,7 @@ GameObject:
   - component: {fileID: 215164207}
   - component: {fileID: 215164206}
   - component: {fileID: 215164205}
+  - component: {fileID: 215164208}
   m_Layer: 5
   m_Name: STAR3 (2)
   m_TagString: Untagged
@@ -193,7 +194,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -6480678301506788457, guid: cbdc3ba942b875747ac26bc4b14524cc, type: 3}
+  m_Sprite: {fileID: -6480678301506788457, guid: f5a114fd075c0124d98fcd8351935208, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -211,6 +212,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 215164203}
   m_CullTransparentMesh: 1
+--- !u!114 &215164208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 215164203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d407fb7c85f2dc94e9837a3fcf4bdfd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StarTwinkle
+  minAlpha: 0.05
+  maxAlpha: 1
+  minScale: 0.65
+  maxScale: 1.4
 --- !u!1 &250714229
 GameObject:
   m_ObjectHideFlags: 0
@@ -223,6 +240,7 @@ GameObject:
   - component: {fileID: 250714233}
   - component: {fileID: 250714232}
   - component: {fileID: 250714231}
+  - component: {fileID: 250714234}
   m_Layer: 5
   m_Name: STAR2 (1)
   m_TagString: Untagged
@@ -285,7 +303,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 8185969880848059133, guid: e249fbaeb5a1d984ebfbe76ccd4cd59c, type: 3}
+  m_Sprite: {fileID: 8185969880848059133, guid: 8df6437d583c2024b9b62d726b5be8c3, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -303,6 +321,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 250714229}
   m_CullTransparentMesh: 1
+--- !u!114 &250714234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 250714229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d407fb7c85f2dc94e9837a3fcf4bdfd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StarTwinkle
+  minAlpha: 0.05
+  maxAlpha: 1
+  minScale: 0.65
+  maxScale: 1.4
 --- !u!1 &261568225
 GameObject:
   m_ObjectHideFlags: 0
@@ -315,6 +349,7 @@ GameObject:
   - component: {fileID: 261568229}
   - component: {fileID: 261568228}
   - component: {fileID: 261568227}
+  - component: {fileID: 261568230}
   m_Layer: 5
   m_Name: STAR3 (3)
   m_TagString: Untagged
@@ -377,7 +412,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -6480678301506788457, guid: cbdc3ba942b875747ac26bc4b14524cc, type: 3}
+  m_Sprite: {fileID: -6480678301506788457, guid: f5a114fd075c0124d98fcd8351935208, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -395,6 +430,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 261568225}
   m_CullTransparentMesh: 1
+--- !u!114 &261568230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 261568225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d407fb7c85f2dc94e9837a3fcf4bdfd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StarTwinkle
+  minAlpha: 0.05
+  maxAlpha: 1
+  minScale: 0.65
+  maxScale: 1.4
 --- !u!1 &266768415
 GameObject:
   m_ObjectHideFlags: 0
@@ -421,8 +472,8 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 266768415}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 14.487768, y: 30.972555, z: 2.2379}
+  m_LocalPosition: {x: 0, y: 0, z: -14.057}
+  m_LocalScale: {x: 10.773394, y: 24.111347, z: 1.6641471}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1624926143}
@@ -455,7 +506,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 306527527881640907, guid: c30390d26fef77245bdabf9602a2237b, type: 3}
+  m_Sprite: {fileID: -8440743472084742668, guid: 13f7d3ed7493a7249a18873062399bb9, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -520,10 +571,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 454958845}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5cc5d977dbcdf064980884a909590868, type: 3}
+  m_Script: {fileID: 11500000, guid: d407fb7c85f2dc94e9837a3fcf4bdfd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StarTwinkle
-  minAlpha: 0.3
+  minAlpha: 0.05
   maxAlpha: 1
   minScale: 0.65
   maxScale: 1.4
@@ -547,7 +598,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 8185969880848059133, guid: e249fbaeb5a1d984ebfbe76ccd4cd59c, type: 3}
+  m_Sprite: {fileID: 8185969880848059133, guid: 8df6437d583c2024b9b62d726b5be8c3, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -612,10 +663,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 516477550}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5cc5d977dbcdf064980884a909590868, type: 3}
+  m_Script: {fileID: 11500000, guid: d407fb7c85f2dc94e9837a3fcf4bdfd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StarTwinkle
-  minAlpha: 0.3
+  minAlpha: 0.05
   maxAlpha: 1
   minScale: 0.65
   maxScale: 1.4
@@ -639,7 +690,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -3410606540076992184, guid: a0d61b69a0b85444ba71a3dc3714edbe, type: 3}
+  m_Sprite: {fileID: -3410606540076992184, guid: 92e21b936d01cc84e90a36f958ce7abc, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1105,10 +1156,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 763888449}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5cc5d977dbcdf064980884a909590868, type: 3}
+  m_Script: {fileID: 11500000, guid: d407fb7c85f2dc94e9837a3fcf4bdfd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StarTwinkle
-  minAlpha: 0.3
+  minAlpha: 0.05
   maxAlpha: 1
   minScale: 0.65
   maxScale: 1.4
@@ -1132,7 +1183,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 8185969880848059133, guid: e249fbaeb5a1d984ebfbe76ccd4cd59c, type: 3}
+  m_Sprite: {fileID: 8185969880848059133, guid: 8df6437d583c2024b9b62d726b5be8c3, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1178,7 +1229,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: b5651fac0627a614ba4d51abb1f8e569, type: 3}
+  m_Resource: {fileID: 8300000, guid: e3efe87f464f770418205c314d9359fb, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -1363,6 +1414,7 @@ GameObject:
   - component: {fileID: 1167420847}
   - component: {fileID: 1167420846}
   - component: {fileID: 1167420845}
+  - component: {fileID: 1167420848}
   m_Layer: 5
   m_Name: STAR3 (1)
   m_TagString: Untagged
@@ -1425,7 +1477,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -6480678301506788457, guid: cbdc3ba942b875747ac26bc4b14524cc, type: 3}
+  m_Sprite: {fileID: -6480678301506788457, guid: f5a114fd075c0124d98fcd8351935208, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1443,6 +1495,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1167420843}
   m_CullTransparentMesh: 1
+--- !u!114 &1167420848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1167420843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d407fb7c85f2dc94e9837a3fcf4bdfd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StarTwinkle
+  minAlpha: 0.05
+  maxAlpha: 1
+  minScale: 0.65
+  maxScale: 1.4
 --- !u!1 &1364711685
 GameObject:
   m_ObjectHideFlags: 0
@@ -1491,10 +1559,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.CanvasScaler
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1080, y: 1920}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -1773,6 +1841,7 @@ GameObject:
   - component: {fileID: 1617385963}
   - component: {fileID: 1617385962}
   - component: {fileID: 1617385961}
+  - component: {fileID: 1617385964}
   m_Layer: 5
   m_Name: STAR3
   m_TagString: Untagged
@@ -1835,7 +1904,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -6480678301506788457, guid: cbdc3ba942b875747ac26bc4b14524cc, type: 3}
+  m_Sprite: {fileID: -6480678301506788457, guid: f5a114fd075c0124d98fcd8351935208, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1853,6 +1922,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1617385959}
   m_CullTransparentMesh: 1
+--- !u!114 &1617385964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1617385959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d407fb7c85f2dc94e9837a3fcf4bdfd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StarTwinkle
+  minAlpha: 0.05
+  maxAlpha: 1
+  minScale: 0.65
+  maxScale: 1.4
 --- !u!1 &1619959751
 GameObject:
   m_ObjectHideFlags: 0
@@ -1863,6 +1948,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1619959753}
   - component: {fileID: 1619959752}
+  - component: {fileID: 1619959754}
   m_Layer: 0
   m_Name: MenuManager
   m_TagString: Untagged
@@ -1897,6 +1983,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1619959754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1619959751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6611fc57052456459e6f7944cd68453, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MenuNavigation
 --- !u!1 &1624926142
 GameObject:
   m_ObjectHideFlags: 0
@@ -1980,13 +2078,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1619959751}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 1807680459}
+        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
+        m_MethodName: IniciarPartida
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -2039,6 +2137,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1807680458}
+  - component: {fileID: 1807680459}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -2061,6 +2160,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1807680459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1807680457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d2ed558e0fcd5849a2976c3521ed8f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MenuManager
 --- !u!1 &1910523183
 GameObject:
   m_ObjectHideFlags: 0
@@ -2144,7 +2255,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1619959752}
+      - m_Target: {fileID: 1619959754}
         m_TargetAssemblyTypeName: MenuNavigation, Assembly-CSharp
         m_MethodName: BackToMenu
         m_Mode: 1
@@ -2286,10 +2397,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1976222684}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5cc5d977dbcdf064980884a909590868, type: 3}
+  m_Script: {fileID: 11500000, guid: d407fb7c85f2dc94e9837a3fcf4bdfd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StarTwinkle
-  minAlpha: 0.3
+  minAlpha: 0.05
   maxAlpha: 1
   minScale: 0.65
   maxScale: 1.4
@@ -2313,7 +2424,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -3410606540076992184, guid: a0d61b69a0b85444ba71a3dc3714edbe, type: 3}
+  m_Sprite: {fileID: -3410606540076992184, guid: 92e21b936d01cc84e90a36f958ce7abc, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2378,10 +2489,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2004541302}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5cc5d977dbcdf064980884a909590868, type: 3}
+  m_Script: {fileID: 11500000, guid: d407fb7c85f2dc94e9837a3fcf4bdfd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StarTwinkle
-  minAlpha: 0.3
+  minAlpha: 0.05
   maxAlpha: 1
   minScale: 0.65
   maxScale: 1.4
@@ -2405,7 +2516,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -3410606540076992184, guid: a0d61b69a0b85444ba71a3dc3714edbe, type: 3}
+  m_Sprite: {fileID: -3410606540076992184, guid: 92e21b936d01cc84e90a36f958ce7abc, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
