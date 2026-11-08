@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scenes/CondicionesGanarPerder.unity.meta
 guid: 3048e737fce3bd249a83cef2e3aa63be
+========
+guid: 886ef0e38dd7a41498b6acc7e8764daa
+>>>>>>>> feat/GroundPlane:Assets/Scenes/Sandbox_GroundPlane.unity.meta
 DefaultImporter:
   externalObjects: {}
   userData: 
