@@ -15,19 +15,19 @@ public class ControladorMenu : MonoBehaviour
         if (canvasMenu != null) canvasMenu.SetActive(false);
     }
 
-    
+
     public void AbrirMenu()
     {
         if (canvasPrincipal != null) canvasPrincipal.SetActive(false);
         if (canvasMenu != null) canvasMenu.SetActive(true);
-        AudioManager audioManager = FindAnyObjectByType<AudioManager>();
-        if (audioManager != null)
+
+       
+        if (AudioManager.Instance != null)
         {
-  
+            AudioManager.Instance.ReproducirMusica();
         }
     }
 
-    
     public void VolverAlMenuInicio()
     {
         

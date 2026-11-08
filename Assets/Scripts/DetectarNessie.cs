@@ -1,4 +1,3 @@
-
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,6 +21,11 @@ public class DetectarNessie : MonoBehaviour
     [Header("Resultado")]
     public bool nessieIluminado;
 
+    // === INICIO: REFERENCIA DE AUDIO AÑADIDA ===
+    [Header("Audio Detección")]
+    public AudioSource audioSource;
+    // === FIN: REFERENCIA DE AUDIO AÑADIDA ===
+
     private float exposicionActual = 0f;
     private float siguienteDebug;
 
@@ -37,6 +41,13 @@ public class DetectarNessie : MonoBehaviour
             barraExposicion.maxValue = 1f;
             barraExposicion.value = 0f;
         }
+
+        // === INICIO: COMPROBAR OBTENCIÓN DEL AUDIO SOURCE ===
+        if (audioSource == null)
+        {
+            audioSource = GetComponent<AudioSource>();
+        }
+        // === FIN: COMPROBAR OBTENCIÓN DEL AUDIO SOURCE ===
     }
 
     private void Update()
@@ -74,6 +85,13 @@ public class DetectarNessie : MonoBehaviour
         {
             nessieEliminado = true;
 
+            // === INICIO: DETENER MÚSICA AL COMPLETAR LA EXPOSICIÓN ===
+            if (audioSource != null && audioSource.isPlaying)
+            {
+                audioSource.Stop();
+            }
+            // === FIN: DETENER MÚSICA AL COMPLETAR LA EXPOSICIÓN ===
+
             Debug.Log("¡Nessie completamente expuesto!");
 
             if (controlJuego != null)
@@ -96,6 +114,22 @@ public class DetectarNessie : MonoBehaviour
             Debug.Log(nessieIluminado
                 ? "[LINTERNA] Nessie está iluminado."
                 : "[LINTERNA] Nessie no está iluminado.");
+
+            // === INICIO: GESTIÓN DE REPRODUCCIÓN DE MÚSICA AL CAMBIAR DE ESTADO ===
+            if (audioSource != null)
+            {
+                if (nessieIluminado)
+                {
+                    if (!audioSource.isPlaying)
+                        audioSource.Play();
+                }
+                else
+                {
+                    if (audioSource.isPlaying)
+                        audioSource.Stop();
+                }
+            }
+            // === FIN: GESTIÓN DE REPRODUCCIÓN DE MÚSICA AL CAMBIAR DE ESTADO ===
 
             estadoAnterior = nessieIluminado;
             primerEstado = false;
