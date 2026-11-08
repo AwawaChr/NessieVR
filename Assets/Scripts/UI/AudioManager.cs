@@ -122,8 +122,8 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void DetenerMusica()
-    {
-        musica.Stop();
-    }
+        public void DetenerMusica()
+        {
+            musica.Stop();
+        }
 }
