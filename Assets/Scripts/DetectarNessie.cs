@@ -1,3 +1,5 @@
+
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,32 +8,34 @@ public class DetectarNessie : MonoBehaviour
     [Header("Referencias")]
     public Light linterna;
     public GameObject nessie;
+    public NessieController nessieController;
 
     [Header("Exposición")]
     public Slider barraExposicion;
     public float tiempoExposicionNecesario = 10f;
+    public float progresoPorDeteccion = 2f;
 
     [Header("Control del juego")]
     public ControlDelJuego controlJuego;
 
-    [Header("Configuracion")]
+    [Header("Configuración")]
     public float radioDeteccion = 0.1f;
     public float intervaloDebug = 1f;
+    public float tiempoBloqueoTrasDeteccion = 1.5f;
+
+    [Header("Audio de detección")]
+    public AudioSource audioDeteccion;
+    public AudioClip sonidoIluminacion;
 
     [Header("Resultado")]
     public bool nessieIluminado;
 
-    // === INICIO: REFERENCIA DE AUDIO AÑADIDA ===
-    [Header("Audio Detección")]
-    public AudioSource audioSource;
-    // === FIN: REFERENCIA DE AUDIO AÑADIDA ===
-
     private float exposicionActual = 0f;
-    private float siguienteDebug;
+    private float siguienteDebug = 0f;
 
-    private bool estadoAnterior;
-    private bool primerEstado = true;
     private bool nessieEliminado = false;
+    private bool estaReapareciendo = false;
+    private bool esperandoQueDejeDeIluminar = false;
 
     private void Start()
     {
@@ -42,57 +46,75 @@ public class DetectarNessie : MonoBehaviour
             barraExposicion.value = 0f;
         }
 
-        // === INICIO: COMPROBAR OBTENCIÓN DEL AUDIO SOURCE ===
-        if (audioSource == null)
-        {
-            audioSource = GetComponent<AudioSource>();
-        }
-        // === FIN: COMPROBAR OBTENCIÓN DEL AUDIO SOURCE ===
+        if (nessie == null)
+            Debug.LogError("[DetectarNessie] Nessie no asignada.");
+
+        if (linterna == null)
+            Debug.LogError("[DetectarNessie] Linterna no asignada.");
+
+        if (nessieController == null)
+            Debug.LogError("[DetectarNessie] NessieController no asignado.");
+
+        if (audioDeteccion == null)
+            Debug.LogWarning("[DetectarNessie] Audio de detección no asignado.");
     }
 
     private void Update()
     {
-        if (nessieEliminado)
+        if (nessieEliminado || estaReapareciendo)
             return;
 
-        // Comprueba si Nessie está iluminado.
         nessieIluminado = ComprobarIluminacion(nessie);
 
-        // Actualiza la exposición acumulativa.
-        if (nessieIluminado)
+        // Esperar a que el jugador deje de iluminar a Nessie
+        // antes de permitir otra detección.
+        if (esperandoQueDejeDeIluminar)
         {
-            exposicionActual += Time.deltaTime;
+            if (!nessieIluminado)
+            {
+                esperandoQueDejeDeIluminar = false;
+                Debug.Log("[NESSIE] Lista para una nueva detección.");
+            }
+
+            return;
         }
 
-        // Evita superar el tiempo necesario.
+        if (!nessieIluminado)
+            return;
+
+        // Nueva detección
+        Debug.Log("[NESSIE] ¡Iluminada!");
+
+        // Reproducir el sonido asignado directamente al AudioSource
+        if (audioDeteccion != null)
+        {
+            audioDeteccion.Play();
+        }
+
+        // Añadir progreso
+        exposicionActual += progresoPorDeteccion;
+
         exposicionActual = Mathf.Clamp(
             exposicionActual,
             0f,
             tiempoExposicionNecesario
         );
 
-        // Actualiza la barra de exposición.
-        if (barraExposicion != null &&
-            tiempoExposicionNecesario > 0f)
-        {
-            barraExposicion.value =
-                exposicionActual / tiempoExposicionNecesario;
-        }
+        ActualizarBarra();
 
-        // Comprueba si Nessie está completamente expuesto.
-        if (exposicionActual >= tiempoExposicionNecesario &&
-            tiempoExposicionNecesario > 0f)
+        Debug.Log(
+            "[NESSIE] Progreso: " +
+            exposicionActual + "/" +
+            tiempoExposicionNecesario
+        );
+
+        // Comprobar victoria
+        if (exposicionActual >= tiempoExposicionNecesario)
         {
             nessieEliminado = true;
+            nessieIluminado = false;
 
-            // === INICIO: DETENER MÚSICA AL COMPLETAR LA EXPOSICIÓN ===
-            if (audioSource != null && audioSource.isPlaying)
-            {
-                audioSource.Stop();
-            }
-            // === FIN: DETENER MÚSICA AL COMPLETAR LA EXPOSICIÓN ===
-
-            Debug.Log("¡Nessie completamente expuesto!");
+            Debug.Log("¡VICTORIA! Nessie ha sido encontrada.");
 
             if (controlJuego != null)
             {
@@ -101,40 +123,73 @@ public class DetectarNessie : MonoBehaviour
             else
             {
                 Debug.LogError(
-                    "No se ha asignado ControlDelJuego."
+                    "[DetectarNessie] ControlDelJuego no asignado."
                 );
             }
 
             return;
         }
 
-        // Informa cuando cambia el estado de iluminación.
-        if (primerEstado || nessieIluminado != estadoAnterior)
+        // Evitar que una misma iluminación cuente varias veces
+        esperandoQueDejeDeIluminar = true;
+
+        if (nessieController != null)
         {
-            Debug.Log(nessieIluminado
-                ? "[LINTERNA] Nessie está iluminado."
-                : "[LINTERNA] Nessie no está iluminado.");
-
-            // === INICIO: GESTIÓN DE REPRODUCCIÓN DE MÚSICA AL CAMBIAR DE ESTADO ===
-            if (audioSource != null)
-            {
-                if (nessieIluminado)
-                {
-                    if (!audioSource.isPlaying)
-                        audioSource.Play();
-                }
-                else
-                {
-                    if (audioSource.isPlaying)
-                        audioSource.Stop();
-                }
-            }
-            // === FIN: GESTIÓN DE REPRODUCCIÓN DE MÚSICA AL CAMBIAR DE ESTADO ===
-
-            estadoAnterior = nessieIluminado;
-            primerEstado = false;
+            StartCoroutine(ProcesarDeteccion());
+        }
+        else
+        {
+            Debug.LogError(
+                "[DetectarNessie] No se puede mover a Nessie: " +
+                "falta NessieController."
+            );
         }
     }
+
+    // =========================================
+    // REUBICACIÓN DE NESSIE
+    // =========================================
+
+    private IEnumerator ProcesarDeteccion()
+    {
+        estaReapareciendo = true;
+
+        // El NessieController reproduce:
+        // 1. Sonido de sumergirse.
+        // 2. Movimiento hacia abajo y desaparición.
+        // 3. Cambio de Spawn Point.
+        // 4. Sonido de emerger.
+        // 5. Aparición de Nessie.
+
+        nessieController.RelocateToRandomSpawn();
+
+        // Esperar a que terminen las transiciones de agua.
+        yield return new WaitForSeconds(tiempoBloqueoTrasDeteccion);
+
+        estaReapareciendo = false;
+
+        nessieIluminado = ComprobarIluminacion(nessie);
+
+        Debug.Log("[NESSIE] Reaparecida. ¡Encuéntrala de nuevo!");
+    }
+
+    // =========================================
+    // ACTUALIZAR BARRA
+    // =========================================
+
+    private void ActualizarBarra()
+    {
+        if (barraExposicion != null &&
+            tiempoExposicionNecesario > 0f)
+        {
+            barraExposicion.value =
+                exposicionActual / tiempoExposicionNecesario;
+        }
+    }
+
+    // =========================================
+    // DETECCIÓN DE ILUMINACIÓN
+    // =========================================
 
     private bool ComprobarIluminacion(GameObject objetivo)
     {
@@ -153,11 +208,11 @@ public class DetectarNessie : MonoBehaviour
         Vector3 direccion = destino - origen;
         float distancia = direccion.magnitude;
 
-        // Comprueba el alcance.
+        // Comprobar alcance
         if (distancia > linterna.range)
             return false;
 
-        // Comprueba el ángulo de la linterna.
+        // Comprobar ángulo
         float angulo = Vector3.Angle(
             linterna.transform.forward,
             direccion
@@ -166,7 +221,7 @@ public class DetectarNessie : MonoBehaviour
         if (angulo > linterna.spotAngle / 2f)
             return false;
 
-        // Comprueba si existe algún obstáculo.
+        // Comprobar obstáculos
         if (Physics.Raycast(
             origen,
             direccion.normalized,
@@ -176,21 +231,16 @@ public class DetectarNessie : MonoBehaviour
         {
             bool esNessie =
                 impacto.collider.transform == objetivo.transform ||
-                impacto.collider.transform.IsChildOf(
-                    objetivo.transform
-                );
+                impacto.collider.transform.IsChildOf(objetivo.transform);
 
             if (esNessie)
             {
-                MostrarDepuracion(
-                    "DETECTADO: Nessie está iluminado."
-                );
-
+                MostrarDepuracion("Nessie está iluminada.");
                 return true;
             }
 
             MostrarDepuracion(
-                "BLOQUEADO: " + impacto.collider.name
+                "Luz bloqueada por: " + impacto.collider.name
             );
         }
 
@@ -202,10 +252,13 @@ public class DetectarNessie : MonoBehaviour
         if (Time.time >= siguienteDebug)
         {
             Debug.Log("[DETECTOR LINTERNA] " + mensaje);
-
             siguienteDebug = Time.time + intervaloDebug;
         }
     }
+
+    // =========================================
+    // GIZMOS
+    // =========================================
 
     private void OnDrawGizmos()
     {
@@ -222,48 +275,6 @@ public class DetectarNessie : MonoBehaviour
         Gizmos.DrawRay(
             origen,
             direccion * linterna.range
-        );
-
-        float semianngulo = linterna.spotAngle / 2f;
-
-        Vector3 derecha = Quaternion.AngleAxis(
-            semianngulo,
-            linterna.transform.up
-        ) * direccion;
-
-        Vector3 izquierda = Quaternion.AngleAxis(
-            -semianngulo,
-            linterna.transform.up
-        ) * direccion;
-
-        Vector3 arriba = Quaternion.AngleAxis(
-            -semianngulo,
-            linterna.transform.right
-        ) * direccion;
-
-        Vector3 abajo = Quaternion.AngleAxis(
-            semianngulo,
-            linterna.transform.right
-        ) * direccion;
-
-        Gizmos.DrawRay(
-            origen,
-            derecha * linterna.range
-        );
-
-        Gizmos.DrawRay(
-            origen,
-            izquierda * linterna.range
-        );
-
-        Gizmos.DrawRay(
-            origen,
-            arriba * linterna.range
-        );
-
-        Gizmos.DrawRay(
-            origen,
-            abajo * linterna.range
         );
     }
 }
