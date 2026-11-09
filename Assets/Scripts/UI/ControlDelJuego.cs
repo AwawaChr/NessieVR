@@ -40,6 +40,11 @@ public class ControlDelJuego : MonoBehaviour
 
         Victoria();
     }
+    public void VolverAlMenu()
+{
+    Time.timeScale = 1f;
+    SceneManager.LoadScene("Inicio", LoadSceneMode.Single);
+}
 
     private void Victoria()
     {

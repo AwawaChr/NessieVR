@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Modelos/NessieMovement/Scenes/NessieMovement_Test.unity
     guid: 921f909690db63e44b948987532deef4
   - enabled: 1
+    path: Assets/Scenes/MenuEscena.unity
+    guid: 176b11c23213187479cc7d3f3e3df60b
+  - enabled: 1
     path: Assets/Scenes/Inicio.unity
     guid: bed97fdfe1b456543a0c55ca183efa63
   - enabled: 1
@@ -20,9 +23,6 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Sandbox_GroundPlane.unity
     guid: 886ef0e38dd7a41498b6acc7e8764daa
-  - enabled: 1
-    path: Assets/Scenes/MenuEscena.unity
-    guid: 176b11c23213187479cc7d3f3e3df60b
   - enabled: 0
     path: Assets/Scenes/PruebasControles.unity
     guid: a943d8b919be17b47a613a6f2fd795aa

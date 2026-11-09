@@ -29,8 +29,12 @@ public class ControladorMenu : MonoBehaviour
     }
 
     public void VolverAlMenuInicio()
+{
+    if (AudioManager.Instance != null)
     {
-        
-        SceneManager.LoadScene("Inicio");
+        AudioManager.Instance.DetenerMusica();
     }
+
+    SceneManager.LoadScene("Inicio");
+}
 }

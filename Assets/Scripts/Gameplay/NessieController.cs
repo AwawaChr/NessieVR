@@ -1,26 +1,34 @@
+
 using System.Collections;
 using UnityEngine;
 
 /// <summary>
-/// Gestiona la apariciÛn, inmersiÛn y reubicaciÛn de Nessie,
-/// asÌ como los efectos de audio asociados a sus transiciones acu·ticas.
+/// Gestiona la aparici√≥n, inmersi√≥n y reubicaci√≥n de Nessie,
+/// as√≠ como los efectos de audio asociados a sus transiciones acu√°ticas.
 /// </summary>
 [RequireComponent(typeof(AudioSource))]
 public class NessieController : MonoBehaviour
 {
-    [Header("Referencias de GestiÛn")]
+    [Header("Referencias de Gesti√≥n")]
     [SerializeField] private NessieSpawnManager spawnManager;
     [SerializeField] private GameObject nessieVisualRoot;
 
-    [Header("Par·metros de AnimaciÛn de Agua")]
+    [SerializeField] private Animator nessieAnimator;
+
+    [Header("Par√°metros de Animaci√≥n de Agua")]
     [Tooltip("Profundidad a la que se hunde bajo el agua")]
     [SerializeField] private float submergedDepth = 0.4f;
-    [Tooltip("DuraciÛn de la animaciÛn de subida/bajada en segundos")]
+
+    [Tooltip("Duraci√≥n de la animaci√≥n de subida/bajada en segundos")]
     [SerializeField] private float transitionDuration = 0.6f;
+
+    [Tooltip("Momento en que se corta la animaci√≥n Dive")]
+    [SerializeField] private float diveAnimationDuration = 2.4f;
 
     [Header("Audio")]
     [Tooltip("Sonido al salir del agua")]
     [SerializeField] private AudioClip emergeAudioClip;
+
     [Tooltip("Sonido al sumergirse en el agua")]
     [SerializeField] private AudioClip submergeAudioClip;
 
@@ -35,7 +43,7 @@ public class NessieController : MonoBehaviour
     {
         audioSource = GetComponent<AudioSource>();
         audioSource.playOnAwake = false;
-        audioSource.spatialBlend = 0.5f; // Audio semi-espacial en AR
+        audioSource.spatialBlend = 0.5f;
 
         if (nessieVisualRoot == null)
         {
@@ -50,7 +58,7 @@ public class NessieController : MonoBehaviour
     }
 
     /// <summary>
-    /// Desaparece de su posiciÛn actual y reaparece en un nuevo Spawn Point aleatorio.
+    /// Desaparece de su posici√≥n actual y reaparece en un nuevo Spawn Point aleatorio.
     /// </summary>
     public void RelocateToRandomSpawn()
     {
@@ -61,6 +69,7 @@ public class NessieController : MonoBehaviour
         }
 
         Transform targetSpawn = spawnManager.GetRandomSpawnPoint();
+
         if (targetSpawn != null)
         {
             StartCoroutine(RoutineRelocateSequence(targetSpawn));
@@ -68,23 +77,24 @@ public class NessieController : MonoBehaviour
     }
 
     /// <summary>
-    /// Forzar reapariciÛn en un punto concreto.
+    /// Forzar reaparici√≥n en un punto concreto.
     /// </summary>
     public void SpawnAt(Transform spawnTransform)
     {
         if (spawnTransform == null) return;
+
         StartCoroutine(RoutineRelocateSequence(spawnTransform));
     }
 
     private IEnumerator RoutineRelocateSequence(Transform targetSpawn)
     {
-        // Si ya est· visible, primero sumergirse
+        // Si ya est√° visible, primero sumergirse
         if (isCurrentlyVisible)
         {
             yield return StartCoroutine(RoutineSubmerge());
         }
 
-        // Posicionar en el nuevo punto garantizando jerarquÌa y escala
+        // Posicionar en el nuevo punto garantizando jerarqu√≠a y escala
         transform.SetPositionAndRotation(targetSpawn.position, targetSpawn.rotation);
         nessieVisualRoot.transform.localScale = baseScale;
 
@@ -94,13 +104,17 @@ public class NessieController : MonoBehaviour
 
     public void Emerge()
     {
-        if (activeTransitionCoroutine != null) StopCoroutine(activeTransitionCoroutine);
+        if (activeTransitionCoroutine != null)
+            StopCoroutine(activeTransitionCoroutine);
+
         activeTransitionCoroutine = StartCoroutine(RoutineEmerge());
     }
 
     public void Submerge()
     {
-        if (activeTransitionCoroutine != null) StopCoroutine(activeTransitionCoroutine);
+        if (activeTransitionCoroutine != null)
+            StopCoroutine(activeTransitionCoroutine);
+
         activeTransitionCoroutine = StartCoroutine(RoutineSubmerge());
     }
 
@@ -109,22 +123,34 @@ public class NessieController : MonoBehaviour
         isCurrentlyVisible = true;
         nessieVisualRoot.SetActive(true);
 
+        // Reset Animator to normal animation when Nessie reappears
+        if (nessieAnimator != null)
+        {
+            nessieAnimator.ResetTrigger("Dive");
+            nessieAnimator.Play("Take 001", 0, 0f);
+        }
+
         // Sonido de emerger del agua
         PlaySound(emergeAudioClip);
 
         Vector3 targetLocalPos = Vector3.zero;
         Vector3 startLocalPos = new Vector3(0f, -submergedDepth, 0f);
+
         nessieVisualRoot.transform.localPosition = startLocalPos;
 
         float elapsed = 0f;
+
         while (elapsed < transitionDuration)
         {
             elapsed += Time.deltaTime;
+
             float t = Mathf.Clamp01(elapsed / transitionDuration);
-            // Curva suave de salida
+
             float smoothT = Mathf.SmoothStep(0f, 1f, t);
 
-            nessieVisualRoot.transform.localPosition = Vector3.Lerp(startLocalPos, targetLocalPos, smoothT);
+            nessieVisualRoot.transform.localPosition =
+                Vector3.Lerp(startLocalPos, targetLocalPos, smoothT);
+
             yield return null;
         }
 
@@ -134,26 +160,24 @@ public class NessieController : MonoBehaviour
 
     private IEnumerator RoutineSubmerge()
     {
-        // Sonido de sumergirse en el agua
-        PlaySound(submergeAudioClip);
-
-        Vector3 startLocalPos = nessieVisualRoot.transform.localPosition;
-        Vector3 targetLocalPos = new Vector3(0f, -submergedDepth, 0f);
-
-        float elapsed = 0f;
-        while (elapsed < transitionDuration)
+        // Play Dive animation
+        if (nessieAnimator != null)
         {
-            elapsed += Time.deltaTime;
-            float t = Mathf.Clamp01(elapsed / transitionDuration);
-            float smoothT = Mathf.SmoothStep(0f, 1f, t);
-
-            nessieVisualRoot.transform.localPosition = Vector3.Lerp(startLocalPos, targetLocalPos, smoothT);
-            yield return null;
+            nessieAnimator.ResetTrigger("Dive");
+            nessieAnimator.SetTrigger("Dive");
         }
 
-        nessieVisualRoot.transform.localPosition = targetLocalPos;
+        // Sonido de sumergirse
+        PlaySound(submergeAudioClip);
+
+        // Wait until the chosen cut-off point
+        yield return new WaitForSeconds(diveAnimationDuration);
+
+        // Immediately hide Nessie before she returns to normal pose
         nessieVisualRoot.SetActive(false);
+
         isCurrentlyVisible = false;
+
         activeTransitionCoroutine = null;
     }
 
